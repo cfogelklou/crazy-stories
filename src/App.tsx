@@ -43,18 +43,19 @@ function App() {
       {filledStory && (
         <div>
           {(() => {
-            const lines = filledStory.split('\n').filter(line => line.trim().length > 0);
+            const lines = filledStory.split('\n');
+            const titleLine = lines.shift()?.trim() || '';
             const titleRegex = /^(\*+)(.*?)\*+$/;
             let title = '';
-            let rest = filledStory;
-            if (lines.length && titleRegex.test(lines[0].trim())) {
-              const match = lines[0].trim().match(titleRegex);
+            if (titleRegex.test(titleLine)) {
+              const match = titleLine.match(titleRegex);
               title = match ? match[2].trim() : '';
-              rest = lines.slice(1).join('\n');
             }
+            const rest = lines.join('\n');
             return (
               <>
                 {title && <h2 style={{ textAlign: 'center' }}>{title}</h2>}
+                {/* Preserve line breaks */}
                 <p style={{ textAlign: 'left', whiteSpace: 'pre-wrap' }}>{rest}</p>
               </>
             );

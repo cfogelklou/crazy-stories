@@ -26,7 +26,7 @@ function ApiKeyInput() {
     <div>
       <label htmlFor="apiKey">Enter your API Key:</label>
       <input
-        type="text"
+        type="password" // Changed input type to password so that the key is hidden
         id="apiKey"
         value={apiKey}
         onChange={(e) => setApiKey(e.target.value)}
