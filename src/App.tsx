@@ -42,8 +42,23 @@ function App() {
       )}
       {filledStory && (
         <div>
-          <h2>Your Final Story</h2>
-          <p>{filledStory}</p>
+          {(() => {
+            const lines = filledStory.split('\n').filter(line => line.trim().length > 0);
+            const titleRegex = /^(\*+)(.*?)\*+$/;
+            let title = '';
+            let rest = filledStory;
+            if (lines.length && titleRegex.test(lines[0].trim())) {
+              const match = lines[0].trim().match(titleRegex);
+              title = match ? match[2].trim() : '';
+              rest = lines.slice(1).join('\n');
+            }
+            return (
+              <>
+                {title && <h2 style={{ textAlign: 'center' }}>{title}</h2>}
+                <p style={{ textAlign: 'left', whiteSpace: 'pre-wrap' }}>{rest}</p>
+              </>
+            );
+          })()}
         </div>
       )}
     </>
