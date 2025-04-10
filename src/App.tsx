@@ -1,35 +1,53 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import ApiKeyInput from './ApiKeyInput';
+import ThemeInput from './ThemeInput';
+import generateStory from './generateStory';
+import PlaceholderInputs from './PlaceholderInputs';
 
 function App() {
-  const [count, setCount] = useState(0)
+  
+  const [story, setStory] = useState('');
+  const [filledStory, setFilledStory] = useState('');
+  const [error, setError] = useState('');
+
+  const handleGenerateStory = async (theme: string) => {
+    const apiKey = localStorage.getItem('apiKey');
+    if (!apiKey) {
+      setError('Please enter your API key first.');
+      return;
+    }
+
+    try {
+      setError('');
+      const generatedStory = await generateStory(apiKey, theme);
+      setStory(generatedStory);
+      setFilledStory(''); // Reset filled story when a new story is generated
+    } catch (err) {
+      setError(err instanceof Error ? err.message : String(err));
+    }
+  };
+
+  const handleFilledStory = (finalStory: string) => {
+    setFilledStory(finalStory);
+  };
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <ApiKeyInput />
+      <ThemeInput onGenerate={handleGenerateStory} />
+      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {story && !filledStory && (
+        <PlaceholderInputs storyTemplate={story} onSubmit={handleFilledStory} />
+      )}
+      {filledStory && (
+        <div>
+          <h2>Your Final Story</h2>
+          <p>{filledStory}</p>
+        </div>
+      )}
     </>
-  )
+  );
 }
 
-export default App
+export default App;

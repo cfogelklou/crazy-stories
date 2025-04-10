@@ -7,7 +7,7 @@ This app is a **client-side web application** implementing an infinite Mad Libs-
 ## 2. Technology Stack
 
 - **Frontend:**  
-  - React Typescript
+  - React Typescript, Vite
   - Standard browser APIs
 
 - **AI Backend:**  
