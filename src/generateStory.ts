@@ -20,7 +20,7 @@ async function generateStory(apiKey: string, theme: string): Promise<string> {
   const data = await response.json();
   // Extract the story from the Gemini API response format
   // The response structure has candidates with content parts
-  console.log(data);
+  console.log(JSON.stringify(data, null, 2)); // Log the entire response for debugging
   return data.candidates[0].content.parts[0].text;
 }
 
