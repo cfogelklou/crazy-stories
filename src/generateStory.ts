@@ -8,7 +8,7 @@ async function generateStory(apiKey: string, theme: string): Promise<string> {
     },
     body: JSON.stringify({
       contents: [{
-        parts: [{ text: `Write a short creative story about: ${theme}` }]
+        parts: [{ text: `Please generate a short, creative, and humorous story suitable for use as a Mad Libs game. The story should include placeholders for various parts of speech and categories, such as <noun>, <verb>, <adjective>, <colour>, <body-part>, <person-name>, <place>, <plural-noun>, <funny-sound>, and <exclamation>. Ensure the placeholders are evenly distributed and replace some of the words in the story with these placeholders. The story should be engaging and fun to complete. Theme: ${theme}` }]
       }]
     }),
   });
@@ -19,7 +19,6 @@ async function generateStory(apiKey: string, theme: string): Promise<string> {
 
   const data = await response.json();
   // Extract the story from the Gemini API response format
-  // The response structure has candidates with content parts
   console.log(JSON.stringify(data, null, 2)); // Log the entire response for debugging
   return data.candidates[0].content.parts[0].text;
 }
