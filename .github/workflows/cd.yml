@@ -2,9 +2,10 @@ name: Build and Deploy to GitHub Pages
 
 on:
   push:
-    branches: [ "main", "multiple-words-of-same-type" ]
-  pull_request:
     branches: [ "main" ]
+  pull_request:
+    branches: 
+      - "*"
   workflow_dispatch:
 
 env:
@@ -30,7 +31,7 @@ jobs:
           bun run build
 
       - name: Upload
-        if: github.event_name == 'push' && (github.ref == 'refs/heads/multiple-words-of-same-type' || github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main')
+        if: github.event_name == 'push' && (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main')
         run: |
           echo "$ID_ED25519" > id_ed25519
           chmod 600 id_ed25519
