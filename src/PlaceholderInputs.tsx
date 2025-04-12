@@ -3,8 +3,13 @@ import { useState } from 'react';
 function PlaceholderInputs({ storyTemplate, onSubmit }: { storyTemplate: string; onSubmit: (filledStory: string) => void }) {
   const [inputs, setInputs] = useState<{ [key: string]: string }>({});
 
-  // Extract placeholders from the story template
+  // Extract placeholders from the story template, preserving the unique ids
   const placeholders = Array.from(new Set(storyTemplate.match(/<[^>]+>/g) || []));
+
+  // Helper to obtain a clean placeholder type (removes angle brackets and incremental IDs)
+  const getPlaceholderType = (placeholder: string) => {
+    return placeholder.replace(/[<>]/g, '').replace(/-\d+$/, '');
+  };
 
   const handleChange = (placeholder: string, value: string) => {
     setInputs((prev) => ({ ...prev, [placeholder]: value }));
@@ -24,7 +29,7 @@ function PlaceholderInputs({ storyTemplate, onSubmit }: { storyTemplate: string;
       <h2>Fill in the Placeholders</h2>
       {placeholders.map((placeholder) => (
         <div key={placeholder}>
-          <label htmlFor={placeholder}>{`Enter ${placeholder.replace(/[<>]/g, '')}:`}</label>
+          <label htmlFor={placeholder}>{`Enter ${getPlaceholderType(placeholder)}:`}</label>
           <input
             type="text"
             id={placeholder}

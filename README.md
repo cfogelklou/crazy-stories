@@ -9,6 +9,7 @@ This app is a **client-side web application** implementing an infinite Mad Libs-
 - **Frontend:**  
   - React Typescript, Vite
   - Standard browser APIs
+  - NVM (use 22), bun 1.2.9+
 
 - **AI Backend:**  
   - User-provided API key for Google Gemini
