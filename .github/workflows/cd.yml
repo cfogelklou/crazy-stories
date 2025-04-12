@@ -2,10 +2,14 @@ name: Build and Deploy to GitHub Pages
 
 on:
   push:
-    branches: [ "main", "firstcommit" ]
+    branches: [ "main", "multiple-words-of-same-type" ]
   pull_request:
     branches: [ "main" ]
   workflow_dispatch:
+
+env:
+  RELEASE: release
+  ID_ED25519: ${{ secrets.ID_ED25519 }}
 
 jobs:
   build-and-deploy:
@@ -25,8 +29,11 @@ jobs:
           bun install
           bun run build
 
-      #- name: Deploy to GitHub Pages
-      #  uses: peaceiris/actions-gh-pages@v3
-      #  with:
-      #    github_token: ${{ secrets.GITHUB_TOKEN }}
-      #    publish_dir: ./dist
+      - name: Upload
+        if: github.event_name == 'push' && (github.ref == 'refs/heads/multiple-words-of-same-type' || github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main')
+        run: |
+          echo "$ID_ED25519" > id_ed25519
+          chmod 600 id_ed25519
+          sftp -o IdentityFile="./id_ed25519" -o "StrictHostKeyChecking=no" -b ./scripts/batchfile_sftp.txt applicaudia.se@ssh.applicaudia.se
+          rm id_ed25519
+
