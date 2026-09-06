@@ -1,11 +1,30 @@
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+  /* Paper-pad world: warm ground, paper cards, ink text, marker-red accent. */
+  --page: #f1ead9;
+  --paper: #fffcf5;
+  --paper-dim: #faf5e9;
+  --ink: #2b2113;
+  --ink-soft: #6f6450;
+  --red: #bd3619;
+  --red-hover: #a02d15;
+  --red-active: #8a2612;
+  --yellow: #ffe082;
+  --line: #e3dbc6;
+  --line-strong: #c9c0a8;
+  --shadow-card: 0 1px 2px rgba(43, 33, 19, 0.07), 0 10px 28px rgba(43, 33, 19, 0.09);
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  --font-display: 'Baloo 2', system-ui, sans-serif;
+  --font-body: system-ui, 'Segoe UI', Helvetica, Arial, sans-serif;
+
+  --radius-card: 14px;
+  --radius-control: 10px;
+
+  color-scheme: light;
+  font-family: var(--font-body);
+  line-height: 1.55;
+  font-weight: 400;
+  color: var(--ink);
+  background-color: var(--page);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -13,56 +32,51 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-a:hover {
-  color: #535bf2;
+* {
+  box-sizing: border-box;
 }
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
   min-width: 320px;
   min-height: 100vh;
+  background-color: var(--page);
+  /* unslop-ignore: warm paper ground is the committed world for this party game */
+  background-image: radial-gradient(rgba(43, 33, 19, 0.035) 1px, transparent 1px);
+  background-size: 22px 22px;
 }
 
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  margin: 0;
 }
 
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+p {
+  margin: 0;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
-  }
+a {
+  color: var(--red);
+  font-weight: 600;
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 2px;
+}
+
+a:hover {
+  color: var(--red-hover);
+}
+
+::selection {
+  background: var(--yellow);
+  color: var(--ink);
+}
+
+:focus-visible {
+  outline: 3px solid var(--red);
+  outline-offset: 2px;
+  border-radius: 4px;
 }

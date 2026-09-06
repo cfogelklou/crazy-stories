@@ -4,6 +4,13 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f1ead9" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700;800&display=swap"
+      rel="stylesheet"
+    />
     <title>Loco Libs — Free AI Mad Libs Story Generator | applicaudia.se</title>
     <meta name="description" content="Free AI Mad Libs generator. Enter a theme, fill in the blanks, and create endless hilarious fill-in-the-blank stories right in your browser." />
     <link rel="canonical" href="https://applicaudia.se/locolibs/" />
@@ -22,6 +29,30 @@
       "author": { "@type": "Organization", "name": "Applicaudia", "url": "https://applicaudia.se" }
     }
     </script>
+    <style>
+      /* Styles the crawler-visible seed content inside #root so the brief
+         pre-hydration flash matches the app instead of the browser default. */
+      #root {
+        max-width: 46rem;
+        margin: 0 auto;
+        padding: 1.75rem 1.25rem;
+        font-family: system-ui, 'Segoe UI', Helvetica, Arial, sans-serif;
+        color: #2b2113;
+        background-color: #f1ead9;
+        min-height: 100vh;
+        box-sizing: border-box;
+      }
+      #root h1 {
+        font-size: 2.5rem;
+        line-height: 1.15;
+        margin: 0 0 0.5rem;
+      }
+      #root p {
+        color: #6f6450;
+        font-size: 1.0625rem;
+        max-width: 36ch;
+      }
+    </style>
   </head>
   <body>
     <div id="root">
